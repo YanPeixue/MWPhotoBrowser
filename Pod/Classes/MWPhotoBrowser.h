@@ -10,7 +10,7 @@
 #import "MWPhoto.h"
 #import "MWPhotoProtocol.h"
 #import "MWCaptionView.h"
-#import <AVKit/AVKit.h>
+#import <AVKit/AVKit.h> //add
 
 // Debug Logging
 #if 0 // Set to 1 to enable debug logging
