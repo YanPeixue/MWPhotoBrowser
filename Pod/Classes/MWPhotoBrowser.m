@@ -1231,6 +1231,8 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     // Change MPMoviePlayerController to AVPlayerViewController
     _currentVideoPlayerViewController = [[AVPlayerViewController alloc] init];
     _currentVideoPlayerViewController.player = player;
+    _currentVideoPlayerViewController.allowsPictureInPicturePlayback = NO;
+    _currentVideoPlayerViewController.delegate = self;
     _currentVideoPlayerViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
     // Remove the movie player view controller from the "playback did finish" notification observers
@@ -1252,11 +1254,15 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(videoFailCallBack:)
                                                  name:AVPlayerItemPlaybackStalledNotification object:_currentVideoPlayerViewController.player];
-    // Show
+    // Show    // Show
+    __weak typeof(_currentVideoPlayerViewController) _weakCurrentPlayerVc = _currentVideoPlayerViewController;
     [self presentViewController:_currentVideoPlayerViewController animated:YES completion:^{
-        [_currentVideoPlayerViewController.player play];
+        [_weakCurrentPlayerVc.player play];
     }];
+}
 
+- (void)playerViewController:(AVPlayerViewController *)playerViewController willEndFullScreenPresentationWithAnimationCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [self videoFinishedCallback:nil];
 }
 
 - (void)videoFailCallBack:(NSNotification *)notification {
