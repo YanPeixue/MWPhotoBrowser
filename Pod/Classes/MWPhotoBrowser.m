@@ -1254,7 +1254,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(videoFailCallBack:)
                                                  name:AVPlayerItemPlaybackStalledNotification object:_currentVideoPlayerViewController.player];
-    // Show
+    // Show1
     __weak typeof(_currentVideoPlayerViewController) _weakCurrentPlayerVc = _currentVideoPlayerViewController;
     [self presentViewController:_currentVideoPlayerViewController animated:YES completion:^{
         [_weakCurrentPlayerVc.player play];
